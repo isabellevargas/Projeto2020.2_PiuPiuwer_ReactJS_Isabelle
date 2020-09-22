@@ -1,10 +1,10 @@
 import React from "react";
-import Login from "./pages/Login";
+import Feed from "./pages/Feed";
 
 import "./assets/styles/global.css";
 
 function App() {
-  return <Login />;
+  return <Feed />;
 }
 
 export default App;
