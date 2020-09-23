@@ -53,22 +53,24 @@ export const Wrapper = styled.section`
     display: flex;
     align-items: center;
   }
+`;
 
-  form div p {
-    font-size: 12px;
-    padding: 10px;
-  }
+export const Botao = styled.button<{ livre: boolean }>`
+  width: 90px;
+  height: 30px;
+  font-size: 18px;
+  margin-bottom: 15px;
+  background-color: #7cc1db;
+  color: #ffffff;
+  border-radius: 25px;
+  border: 1px solid #7cc1db;
+  outline: 0;
+  cursor: pointer;
+  opacity: ${(props) => (props.livre ? 1 : 0.5)};
+`;
 
-  form button {
-    width: 90px;
-    height: 30px;
-    font-size: 18px;
-    margin-bottom: 15px;
-    background-color: #7cc1db;
-    color: #ffffff;
-    border-radius: 25px;
-    border: 1px solid #7cc1db;
-    outline: 0;
-    cursor: pointer;
-  }
+export const Frases = styled.p<{ livre: boolean }>`
+  font-size: 12px;
+  padding: 10px;
+  color: ${(props) => (props.livre ? "black" : "red")};
 `;

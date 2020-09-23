@@ -1,10 +1,9 @@
 import React from "react";
-import Feed from "./pages/Feed";
-
 import "./assets/styles/global.css";
+import Routes from "./routes";
 
 function App() {
-  return <Feed />;
+  return <Routes />;
 }
 
 export default App;
