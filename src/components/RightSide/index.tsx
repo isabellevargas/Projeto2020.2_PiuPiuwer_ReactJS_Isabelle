@@ -1,21 +1,22 @@
 import React from "react";
 import { Wrapper } from "./styles";
-import userImg from "../../assets/images/isa.jpeg";
+import icon from "../../assets/images/isa.jpeg";
 
-function RightSide() {
+const RightSide: React.FC = () => {
+  var first_name = localStorage.getItem("first_name");
+  var foto = localStorage.getItem("foto");
+  var sobre = localStorage.getItem("sobre");
+  var user = localStorage.getItem("user");
   return (
     <Wrapper>
-      <img src={userImg} alt="profile" />
-      <h2>Isa</h2>
-      <p>@isavargas</p>
+      <img src={icon} alt="profile" />
+      <h2>{first_name}</h2>
+      <p>{user}</p>
       <div>
-        <span>18 anos</span>
-        <span> Curitiba</span>
-        <span>ESFJ</span>
-        <span>Trainee na PoliJúnior</span>
+        <span>{sobre}</span>
       </div>
     </Wrapper>
   );
-}
+};
 
 export default RightSide;

@@ -5,7 +5,8 @@ export const Wrapper = styled.aside`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  margin: 30px 0 0 40px;
+  margin: 5% 0 0 5%;
+  width: 15%;
 
   img {
     width: 100px;

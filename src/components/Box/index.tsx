@@ -9,7 +9,7 @@ function Box() {
   const [usuario, setUsuario] = useState("");
   const [senha, setSenha] = useState("");
 
-  async function verifyUser(e: FormEvent) {
+  async function verificarUser(e: FormEvent) {
     e.preventDefault();
 
     await axios({
@@ -22,7 +22,7 @@ function Box() {
     })
       .then((response) => {
         localStorage.setItem("token", response.data.token);
-        console.log(response.data.token);
+        localStorage.setItem("user", usuario);
         history.push("/feed");
       })
       .catch((error) => {
@@ -36,7 +36,7 @@ function Box() {
     <Caixa>
       <h1>Bem vinde novamente!</h1>
       <p>Ficamos felizes que você tenha decidido voltar para dar uns pius!</p>
-      <form onSubmit={verifyUser}>
+      <form onSubmit={verificarUser}>
         <div className="user">
           <label>Usuário</label>
           <input

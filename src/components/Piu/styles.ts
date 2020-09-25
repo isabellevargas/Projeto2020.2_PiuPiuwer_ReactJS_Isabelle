@@ -2,20 +2,22 @@ import styled from "styled-components";
 
 export const Wrapper = styled.li`
   border-bottom: 1px solid rgba(200, 121, 168, 0.73);
-  margin: 20px;
-  padding: 10px 15px;
+  margin: 2%;
+  padding: 2% 2%;
   display: flex;
   justify-content: space-between;
   font-family: "Roboto", sans-serif;
+  width: 100%;
 
   div {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
   }
 
   div img {
+    object-fit: cover;
     width: 60px;
     height: 60px;
     border-radius: 50%;
