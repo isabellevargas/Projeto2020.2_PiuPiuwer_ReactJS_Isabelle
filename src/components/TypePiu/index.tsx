@@ -3,7 +3,7 @@ import homeIcon from "../../assets/images/023-home.svg";
 import { Wrapper, Botao, Frases } from "./styles";
 import axios from "axios";
 
-function TypePiu() {
+const TypePiu: React.FC = () => {
   const [contador, setContador] = useState("0/140");
   const [fraseErro, setFraseErro] = useState("");
   const [botao, setBotao] = useState(true);
@@ -30,9 +30,9 @@ function TypePiu() {
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
 
-    const userId = Number(localStorage.getItem("user_id"));
+    const userId = localStorage.getItem("@Piupiuwer::id");
     const mensagem = textoPiu;
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("@Piupiuwer::token");
 
     await axios({
       url: "http://piupiuwer.polijr.com.br/pius/",
@@ -71,6 +71,6 @@ function TypePiu() {
       </form>
     </Wrapper>
   );
-}
+};
 
 export default TypePiu;

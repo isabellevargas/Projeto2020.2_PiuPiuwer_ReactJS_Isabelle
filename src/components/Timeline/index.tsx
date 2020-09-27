@@ -4,11 +4,11 @@ import Piu, { PiuItem } from "../Piu";
 import { Wrapper } from "./styles";
 import axios from "axios";
 
-function Timeline() {
+const Timeline: React.FC = () => {
   const [dados, setDados] = useState<PiuItem[]>([]);
 
   async function carregarDados() {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("@Piupiuwer::token");
     const dados = await axios({
       url: "http://piupiuwer.polijr.com.br/pius/",
       method: "GET",
@@ -18,32 +18,7 @@ function Timeline() {
     });
     setDados(dados.data);
   }
-
-  async function acharUser() {
-    var i = 0;
-    const token = localStorage.getItem("token");
-    const response = await axios({
-      url: "http://piupiuwer.polijr.com.br/usuarios/",
-      method: "GET",
-      headers: {
-        Authorization: `JWT ${token}`,
-      },
-    });
-
-    for (i = 0; i < response.data.length; i++) {
-      var usuario = response.data[i];
-      if (usuario.username === localStorage.getItem("user")) {
-        localStorage.setItem("user_id", usuario.id);
-        localStorage.setItem("first_name", usuario.first_name);
-        localStorage.setItem("foto", usuario.foto);
-        localStorage.setItem("sobre", usuario.sobre);
-        break;
-      }
-    }
-  }
-
   carregarDados();
-  acharUser();
 
   return (
     <Wrapper>
@@ -54,6 +29,6 @@ function Timeline() {
         })}
     </Wrapper>
   );
-}
+};
 
 export default Timeline;

@@ -4,7 +4,7 @@ import "./styles.ts";
 import logoImg from "../../assets/images/icon.svg";
 import { Header } from "./styles";
 
-function MenuLogin() {
+const MenuLogin: React.FC = () => {
   return (
     <Header>
       <div className="content">
@@ -21,6 +21,6 @@ function MenuLogin() {
       </div>
     </Header>
   );
-}
+};
 
 export default MenuLogin;

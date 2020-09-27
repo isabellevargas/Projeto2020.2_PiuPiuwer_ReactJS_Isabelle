@@ -1,10 +1,12 @@
 import styled from "styled-components";
 
 export const Header = styled.header`
-  height: 46px;
+  height: 7%;
   background: white;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
-  position: relative;
+  position: fixed;
+  width: 100%;
+  top: 0;
   z-index: 1;
   font-family: "Roboto", sans-serif;
 
@@ -24,19 +26,19 @@ export const Header = styled.header`
     display: flex;
     align-items: center;
 
-    font-size: 13px;
+    font-size: 0.8rem;
     color: #b164ae;
     font-weight: bold;
 
-    margin-left: 30px;
+    margin-left: 2rem;
   }
 
   nav ul li img {
-    width: 20px;
-    height: 20px;
+    width: 1.3rem;
+    height: 1.3rem;
   }
 
   nav ul li img {
-    margin-right: 7px;
+    margin-right: 0.5rem;
   }
 `;

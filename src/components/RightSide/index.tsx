@@ -1,16 +1,23 @@
 import React from "react";
 import { Wrapper } from "./styles";
-import icon from "../../assets/images/isa.jpeg";
 
 const RightSide: React.FC = () => {
-  var first_name = localStorage.getItem("first_name");
-  var foto = localStorage.getItem("foto");
-  var sobre = localStorage.getItem("sobre");
-  var user = localStorage.getItem("user");
+  /*const [user, setUser] = useState();
+  const [foto, setFoto] = useState();
+  const [sobre, setSobre] = useState();
+  const [first_name, setFirstName] = useState();*/
+  const user = localStorage.getItem("@Piupiuwer::user");
+  const foto = localStorage.getItem("@Piupiuwer::foto");
+  const sobre = localStorage.getItem("@Piupiuwer::sobre");
   return (
     <Wrapper>
-      <img src={icon} alt="profile" />
-      <h2>{first_name}</h2>
+      <img
+        src={
+          foto ||
+          "https://ii-dd.com/wp-content/uploads/2020/02/default-user.png"
+        }
+        alt="profile"
+      />
       <p>{user}</p>
       <div>
         <span>{sobre}</span>

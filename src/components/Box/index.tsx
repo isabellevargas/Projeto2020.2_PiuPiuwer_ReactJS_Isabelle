@@ -1,49 +1,37 @@
-import React, { FormEvent, useState } from "react";
-import { useHistory } from "react-router-dom";
-import axios from "axios";
+import React, { FormEvent, useCallback, useState } from "react";
+import { BlockComponent } from "./styles";
+import { useAuth } from "../../hooks/useAuth";
 
-import { Caixa } from "./styles";
+const Box: React.FC = () => {
+  const [cred, setCred] = useState({
+    username: "",
+    password: "",
+  });
 
-function Box() {
-  const history = useHistory();
-  const [usuario, setUsuario] = useState("");
-  const [senha, setSenha] = useState("");
+  const { login } = useAuth();
 
-  async function verificarUser(e: FormEvent) {
-    e.preventDefault();
-
-    await axios({
-      url: "http://piupiuwer.polijr.com.br/login/",
-      method: "POST",
-      data: {
-        username: usuario,
-        password: senha,
-      },
-    })
-      .then((response) => {
-        localStorage.setItem("token", response.data.token);
-        localStorage.setItem("user", usuario);
-        history.push("/feed");
-      })
-      .catch((error) => {
-        console.log(error);
-        alert("Dados incorretos");
-        history.push("/");
-      });
-  }
+  const handleLogin = useCallback(
+    (e: FormEvent) => {
+      e.preventDefault();
+      login(cred);
+    },
+    [cred, login]
+  );
 
   return (
-    <Caixa>
+    <BlockComponent>
       <h1>Bem vinde novamente!</h1>
       <p>Ficamos felizes que você tenha decidido voltar para dar uns pius!</p>
-      <form onSubmit={verificarUser}>
+      <form onSubmit={handleLogin}>
         <div className="user">
           <label>Usuário</label>
           <input
             type="text"
-            value={usuario}
             onChange={(e) => {
-              setUsuario(e.target.value);
+              setCred({
+                username: e.target.value,
+                password: cred.password,
+              });
             }}
           ></input>
         </div>
@@ -51,17 +39,19 @@ function Box() {
           <label>Senha</label>
           <input
             type="text"
-            value={senha}
             onChange={(e) => {
-              setSenha(e.target.value);
+              setCred({
+                username: cred.username,
+                password: e.target.value,
+              });
             }}
           ></input>
         </div>
 
         <button type="submit">Entrar</button>
       </form>
-    </Caixa>
+    </BlockComponent>
   );
-}
+};
 
 export default Box;

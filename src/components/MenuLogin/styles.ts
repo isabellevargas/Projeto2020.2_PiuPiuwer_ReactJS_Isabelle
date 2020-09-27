@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Header = styled.header`
-  height: 60px;
+  height: 7%;
   background: white;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
   position: relative;
@@ -17,8 +17,11 @@ export const Header = styled.header`
   .items {
     display: flex;
     align-items: center;
-    font-family: "Lobster", cursive;
     color: #b164ae;
+  }
+
+  .items h1 {
+    font-family: "Lobster", cursive;
   }
 
   ul {
@@ -31,16 +34,16 @@ export const Header = styled.header`
     display: flex;
     align-items: center;
 
-    font-size: 18px;
+    font-size: 1rem;
     color: #b164ae;
     font-weight: bold;
 
-    margin-right: 20px;
+    margin-right: 1.5rem;
   }
 
   img {
-    width: 50px;
-    height: 50px;
-    margin: 20px;
+    width: 2rem;
+    height: 2rem;
+    margin: 2rem;
   }
 `;

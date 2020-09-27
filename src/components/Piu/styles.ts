@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.li`
+export const WrapperComponent = styled.li`
   border-bottom: 1px solid rgba(200, 121, 168, 0.73);
   margin: 2%;
   padding: 2% 2%;
@@ -15,32 +15,61 @@ export const Wrapper = styled.li`
     align-items: center;
     justify-content: space-between;
   }
+`;
 
-  div img {
+export const InteractionsComponent = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+
+  .like {
+    display: flex;
+    align-items: center;
+  }
+
+  .like p {
+    text-decoration: none;
+    color: #b164ae;
+    font-size: 12px;
+  }
+
+  a img {
+    width: 15px;
+    height: 15px;
+    margin: 10px 5px 0 10px;
+  }
+
+  a:first-child {
+    margin-top: 0;
+  }
+`;
+
+export const DataComponent = styled.div`
+  img {
     object-fit: cover;
     width: 60px;
     height: 60px;
     border-radius: 50%;
   }
 
-  div .dados {
+  div {
     margin-left: 10px;
     display: flex;
     flex-direction: column;
   }
 
-  div .dados strong {
+  div strong {
     font-size: 14px;
     color: black;
   }
 
-  div .dados span {
+  div span {
     font-size: 13px;
     font-weight: normal;
     color: black;
   }
 
-  div .dados p {
+  div p {
     font-size: 14px;
     color: black;
     margin-top: 5px;
@@ -48,32 +77,5 @@ export const Wrapper = styled.li`
     display: flex;
     flex-wrap: wrap;
     flex-shrink: 1;
-  }
-
-  .interacoes {
-    display: flex;
-    flex-direction: column;
-    margin-top: 20px;
-  }
-
-  .interacoes div {
-    display: flex;
-    align-items: center;
-  }
-
-  .interacoes div p {
-    text-decoration: none;
-    color: #b164ae;
-    font-size: 12px;
-  }
-
-  .interacoes a img {
-    width: 15px;
-    height: 15px;
-    margin: 10px 5px 0 10px;
-  }
-
-  .interacoes a:first-child {
-    margin-top: 0;
   }
 `;

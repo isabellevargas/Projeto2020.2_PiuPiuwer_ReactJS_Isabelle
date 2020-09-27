@@ -1,7 +1,11 @@
 import React from "react";
 import like from "../../assets/images/003-favourite 1.svg";
 import deletar from "../../assets/images/delete 2.svg";
-import { Wrapper } from "./styles";
+import {
+  WrapperComponent,
+  InteractionsComponent,
+  DataComponent,
+} from "./styles";
 import axios from "axios";
 
 export interface PiuItem {
@@ -27,10 +31,11 @@ interface PiuItemProps {
 const Piu: React.FC<PiuItemProps> = ({ dados }) => {
   async function handleDelete(e: React.MouseEvent) {
     e.preventDefault();
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("@Piupiuwer::token");
     const piuId = dados.id;
+    const userId = Number(localStorage.getItem("@Piupiuwer::id"));
 
-    if (dados.usuario.id === Number(localStorage.getItem("user_id"))) {
+    if (dados.usuario.id === userId) {
       await axios({
         url: `http://piupiuwer.polijr.com.br/pius/${piuId}`,
         method: "DELETE",
@@ -44,9 +49,9 @@ const Piu: React.FC<PiuItemProps> = ({ dados }) => {
   }
   async function handleLike(e: React.MouseEvent) {
     e.preventDefault();
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("@Piupiuwer::token");
     const piuId = dados.id;
-    const userId = Number(localStorage.getItem("user_id"));
+    const userId = localStorage.getItem("@Piupiuwer::id");
 
     await axios({
       url: "http://piupiuwer.polijr.com.br/pius/dar-like/",
@@ -62,20 +67,20 @@ const Piu: React.FC<PiuItemProps> = ({ dados }) => {
   }
 
   return (
-    <Wrapper>
+    <WrapperComponent>
       <div>
-        <div>
+        <DataComponent>
           <img src={dados.usuario.foto} alt="avatar" />
-          <div className="dados">
+          <div>
             <strong>
               {dados.usuario.first_name + " " + dados.usuario.last_name}
             </strong>
             <span>{dados.usuario.username}</span>
             <p>{dados.texto}</p>
           </div>
-        </div>
-        <div className="interacoes">
-          <div>
+        </DataComponent>
+        <InteractionsComponent>
+          <div className="like">
             <a href="/" onClick={handleLike}>
               <img src={like} alt="like" />
             </a>
@@ -84,9 +89,9 @@ const Piu: React.FC<PiuItemProps> = ({ dados }) => {
           <a href="/" onClick={handleDelete}>
             <img src={deletar} alt="deletar" />
           </a>
-        </div>
+        </InteractionsComponent>
       </div>
-    </Wrapper>
+    </WrapperComponent>
   );
 };
 

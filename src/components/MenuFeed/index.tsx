@@ -7,7 +7,7 @@ import profileIcon from "../../assets/images/perfil.svg";
 import notificationIcon from "../../assets/images/notificacao.svg";
 import settingsIcon from "../../assets/images/configuracoes.svg";
 
-function MenuFeed() {
+const MenuFeed: React.FC = () => {
   return (
     <Header>
       <div className="content">
@@ -34,6 +34,6 @@ function MenuFeed() {
       </div>
     </Header>
   );
-}
+};
 
 export default MenuFeed;
