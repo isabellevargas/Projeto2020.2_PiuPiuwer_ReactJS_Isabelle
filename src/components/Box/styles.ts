@@ -46,11 +46,16 @@ export const BlockComponent = styled.div`
     outline: 0;
   }
 
+  form span {
+    font-size: 0.8rem;
+    margin: 0.1rem;
+  }
+
   form button {
     height: 1.5rem;
     width: 6.5rem;
     font-size: 1rem;
-    margin-top: 0.1rem;
+    margin-top: 0.3rem;
     background-color: #b164ae;
     color: white;
     border-radius: 0.5rem;

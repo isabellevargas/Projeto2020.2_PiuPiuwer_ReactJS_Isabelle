@@ -7,15 +7,17 @@ const Box: React.FC = () => {
     username: "",
     password: "",
   });
+  const [errorText, setErrorText] = useState<string | undefined>("");
 
   const { login } = useAuth();
 
   const handleLogin = useCallback(
-    (e: FormEvent) => {
+    async (e: FormEvent) => {
       e.preventDefault();
-      login(cred);
+      const erro = await login(cred);
+      setErrorText(erro);
     },
-    [cred, login]
+    [cred, login, setErrorText]
   );
 
   return (
@@ -47,7 +49,7 @@ const Box: React.FC = () => {
             }}
           ></input>
         </div>
-
+        <span>{errorText}</span>
         <button type="submit">Entrar</button>
       </form>
     </BlockComponent>

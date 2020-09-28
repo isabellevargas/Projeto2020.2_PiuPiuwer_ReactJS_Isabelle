@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useCallback } from "react";
 import api from "../services/api";
+import history from "../history";
 
 interface AuthState {
   token: string;
@@ -8,7 +9,7 @@ interface AuthState {
 
 interface AuthContextData {
   user: object;
-  login({ username, password }: LoginCred): void;
+  login({ username, password }: LoginCred): Promise<string | undefined>;
   logout(): void;
 }
 
@@ -32,27 +33,51 @@ export const AuthProvider: React.FC = ({ children }) => {
   });
 
   const login = useCallback(async ({ username, password }: LoginCred) => {
-    const response = await api.post("/login/", { username, password });
+    try {
+      const response = await api.post("/login/", { username, password });
 
-    const { token } = response.data;
-    localStorage.setItem("@Piupiuwer::token", token);
+      const { token } = response.data;
+      localStorage.setItem("@Piupiuwer::token", token);
 
-    if (!!token) {
-      const response = await api.get("/usuarios/?search=" + username);
-      const user = response.data[0].username;
-      const id = response.data[0].id;
-      const sobre = response.data[0].sobre;
-      const foto = response.data[0].foto;
-      localStorage.setItem("@Piupiuwer::user", user);
-      localStorage.setItem("@Piupiuwer::id", id);
-      localStorage.setItem("@Piupiuwer::sobre", sobre);
-      localStorage.setItem("@Piupiuwer::foto", foto);
+      if (!!token) {
+        const response = await api.get("/usuarios/?search=" + username);
+        const user = response.data[0].username;
+        const id = response.data[0].id;
+        const sobre = response.data[0].sobre;
+        const foto = response.data[0].foto;
+        localStorage.setItem("@Piupiuwer::user", user);
+        localStorage.setItem("@Piupiuwer::id", id);
+        localStorage.setItem("@Piupiuwer::sobre", sobre);
+        localStorage.setItem("@Piupiuwer::foto", foto);
 
-      setData({ user, token });
+        setData({ user, token });
+      }
+    } catch (err) {
+      const { data } = err.response;
+
+      if (err.response) {
+        if (
+          data.global !== undefined &&
+          data.global[0] ===
+            "Impossível fazer login com as credenciais fornecidas."
+        )
+          return "Atenção: Usuário e senha não existem";
+        if (
+          data.username !== undefined &&
+          data.username[0] === "Este campo não pode ser em branco."
+        )
+          return "Atenção: Usuário em branco";
+        if (
+          data.password !== undefined &&
+          data.password[0] === "Este campo não pode ser em branco."
+        )
+          return "Atenção: Senha em branco";
+      }
     }
   }, []);
 
   const logout = () => {
+    history.push("/");
     localStorage.removeItem("@Piupiuwer::user");
     localStorage.removeItem("@Project::token");
   };

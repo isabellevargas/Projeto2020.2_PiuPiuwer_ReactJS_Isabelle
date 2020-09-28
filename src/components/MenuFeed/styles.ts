@@ -25,6 +25,7 @@ export const Header = styled.header`
   nav ul li {
     display: flex;
     align-items: center;
+    cursor: pointer;
 
     font-size: 0.8rem;
     color: #b164ae;
