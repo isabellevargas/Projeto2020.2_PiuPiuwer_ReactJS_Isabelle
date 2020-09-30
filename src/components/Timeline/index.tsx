@@ -2,20 +2,15 @@ import React, { useState } from "react";
 import TypePiu from "../TypePiu";
 import Piu, { PiuItem } from "../Piu";
 import { Wrapper } from "./styles";
-import axios from "axios";
+import api from "../../services/api";
 
 const Timeline: React.FC = () => {
   const [dados, setDados] = useState<PiuItem[]>([]);
 
   async function carregarDados() {
     const token = localStorage.getItem("@Piupiuwer::token");
-    const dados = await axios({
-      url: "http://piupiuwer.polijr.com.br/pius/",
-      method: "GET",
-      headers: {
-        Authorization: `JWT ${token}`,
-      },
-    });
+    api.defaults.headers.authorization = `JWT ${token}`;
+    const dados = await api.get("/pius/");
     setDados(dados.data);
   }
   carregarDados();

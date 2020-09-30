@@ -6,7 +6,6 @@ import {
 } from "react-router-dom";
 
 import { useAuth } from "../hooks/useAuth";
-import Feed from "../pages/Feed";
 
 interface RouteProps extends ReactRouteProps {
   isPrivate?: boolean;

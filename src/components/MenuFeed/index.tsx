@@ -8,7 +8,6 @@ import notificationIcon from "../../assets/images/notificacao.svg";
 import settingsIcon from "../../assets/images/configuracoes.svg";
 import exitIcon from "../../assets/images/exit 1.svg";
 import { useAuth } from "../../hooks/useAuth";
-import history from "../../history";
 
 const MenuFeed: React.FC = () => {
   const { logout } = useAuth();

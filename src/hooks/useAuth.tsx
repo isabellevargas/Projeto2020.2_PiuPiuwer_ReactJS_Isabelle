@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState, useCallback } from "react";
 import api from "../services/api";
-import history from "../history";
 
 interface AuthState {
   token: string;
@@ -77,9 +76,13 @@ export const AuthProvider: React.FC = ({ children }) => {
   }, []);
 
   const logout = () => {
-    history.push("/");
     localStorage.removeItem("@Piupiuwer::user");
-    localStorage.removeItem("@Project::token");
+    localStorage.removeItem("@Piupiuwer::token");
+    localStorage.removeItem("@Piupiuwer::id");
+    localStorage.removeItem("@Piupiuwer::foto");
+    localStorage.removeItem("@Piupiuwer::sobre");
+
+    setData({} as AuthState);
   };
 
   return (

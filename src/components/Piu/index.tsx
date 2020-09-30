@@ -6,7 +6,7 @@ import {
   InteractionsComponent,
   DataComponent,
 } from "./styles";
-import axios from "axios";
+import api from "../../services/api";
 
 export interface PiuItem {
   id: number;
@@ -36,13 +36,8 @@ const Piu: React.FC<PiuItemProps> = ({ dados }) => {
     const userId = Number(localStorage.getItem("@Piupiuwer::id"));
 
     if (dados.usuario.id === userId) {
-      await axios({
-        url: `http://piupiuwer.polijr.com.br/pius/${piuId}`,
-        method: "DELETE",
-        headers: {
-          Authorization: `JWT ${token}`,
-        },
-      });
+      api.defaults.headers.authorization = `JWT ${token}`;
+      await api.delete(`/pius/${piuId}`);
     } else {
       alert("Você não pode excluir pius que não são seus");
     }
@@ -53,17 +48,8 @@ const Piu: React.FC<PiuItemProps> = ({ dados }) => {
     const piuId = dados.id;
     const userId = localStorage.getItem("@Piupiuwer::id");
 
-    await axios({
-      url: "http://piupiuwer.polijr.com.br/pius/dar-like/",
-      method: "POST",
-      headers: {
-        Authorization: `JWT ${token}`,
-      },
-      data: {
-        usuario: userId,
-        piu: piuId,
-      },
-    });
+    api.defaults.headers.authorization = `JWT ${token}`;
+    await api.post("/pius/dar-like/", { usuario: userId, piu: piuId });
   }
 
   return (
