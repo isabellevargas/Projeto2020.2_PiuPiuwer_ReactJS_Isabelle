@@ -1,26 +1,22 @@
 import React from "react";
 import { Wrapper } from "./styles";
+import { useAuth } from "../../hooks/useAuth";
 
 const RightSide: React.FC = () => {
-  /*const [user, setUser] = useState();
-  const [foto, setFoto] = useState();
-  const [sobre, setSobre] = useState();
-  const [first_name, setFirstName] = useState();*/
-  const user = localStorage.getItem("@Piupiuwer::user");
-  const foto = localStorage.getItem("@Piupiuwer::foto");
-  const sobre = localStorage.getItem("@Piupiuwer::sobre");
+  const { user } = useAuth();
   return (
     <Wrapper>
       <img
         src={
-          foto ||
+          user.foto ||
           "https://ii-dd.com/wp-content/uploads/2020/02/default-user.png"
         }
         alt="profile"
       />
-      <p>{user}</p>
+      <h2>{user.first_name}</h2>
+      <p>{user.username}</p>
       <div>
-        <span>{sobre}</span>
+        <span>{user.sobre}</span>
       </div>
     </Wrapper>
   );

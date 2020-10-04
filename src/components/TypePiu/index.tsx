@@ -1,13 +1,29 @@
-import React, { FormEvent, ChangeEvent, useState } from "react";
+import React, {
+  FormEvent,
+  ChangeEvent,
+  useState,
+  useCallback,
+  useEffect,
+} from "react";
 import homeIcon from "../../assets/images/023-home.svg";
 import { Wrapper, Botao, Frases } from "./styles";
-import axios from "axios";
+import api from "../../services/api";
+import { useLoad } from "../../hooks/useLoad";
+import { useAuth } from "../../hooks/useAuth";
 
 const TypePiu: React.FC = () => {
   const [contador, setContador] = useState("0/140");
   const [fraseErro, setFraseErro] = useState("");
   const [botao, setBotao] = useState(true);
   const [textoPiu, setTextoPiu] = useState("");
+  const [change, setChange] = useState(false);
+
+  const { carregarDados } = useLoad();
+  const { user } = useAuth();
+
+  useEffect(() => {
+    carregarDados();
+  }, [change, carregarDados]);
 
   function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
     var texto = e.target.value;
@@ -27,25 +43,18 @@ const TypePiu: React.FC = () => {
     }
   }
 
-  async function handleSubmit(e: FormEvent) {
-    e.preventDefault();
+  const handleSubmit = useCallback(
+    async (e: FormEvent) => {
+      e.preventDefault();
 
-    const userId = localStorage.getItem("@Piupiuwer::id");
-    const mensagem = textoPiu;
-    const token = localStorage.getItem("@Piupiuwer::token");
+      const userId = user.id;
+      const mensagem = textoPiu;
 
-    await axios({
-      url: "http://piupiuwer.polijr.com.br/pius/",
-      method: "POST",
-      headers: {
-        Authorization: `JWT ${token}`,
-      },
-      data: {
-        usuario: userId,
-        texto: mensagem,
-      },
-    });
-  }
+      await api.post("/pius/", { usuario: userId, texto: mensagem });
+      setChange(!change);
+    },
+    [textoPiu, user.id, change]
+  );
 
   return (
     <Wrapper>

@@ -3,13 +3,22 @@ import api from "../services/api";
 
 interface AuthState {
   token: string;
-  user: object;
+  user: User;
 }
 
 interface AuthContextData {
-  user: object;
+  user: User;
+  token: string;
   login({ username, password }: LoginCred): Promise<string | undefined>;
   logout(): void;
+}
+
+interface User {
+  id: number;
+  first_name: string;
+  username: string;
+  sobre: string;
+  foto: string;
 }
 
 interface LoginCred {
@@ -25,6 +34,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     const token = localStorage.getItem("@Piupiuwer::token");
 
     if (user && token) {
+      api.defaults.headers.Authorization = `JWT ${token}`;
       return { user: JSON.parse(user), token };
     }
 
@@ -36,18 +46,14 @@ export const AuthProvider: React.FC = ({ children }) => {
       const response = await api.post("/login/", { username, password });
 
       const { token } = response.data;
+
+      api.defaults.headers.Authorization = `JWT ${token}`;
       localStorage.setItem("@Piupiuwer::token", token);
 
       if (!!token) {
         const response = await api.get("/usuarios/?search=" + username);
-        const user = response.data[0].username;
-        const id = response.data[0].id;
-        const sobre = response.data[0].sobre;
-        const foto = response.data[0].foto;
-        localStorage.setItem("@Piupiuwer::user", user);
-        localStorage.setItem("@Piupiuwer::id", id);
-        localStorage.setItem("@Piupiuwer::sobre", sobre);
-        localStorage.setItem("@Piupiuwer::foto", foto);
+        const user = response.data[0];
+        localStorage.setItem("@Piupiuwer::user", JSON.stringify(user));
 
         setData({ user, token });
       }
@@ -78,15 +84,14 @@ export const AuthProvider: React.FC = ({ children }) => {
   const logout = () => {
     localStorage.removeItem("@Piupiuwer::user");
     localStorage.removeItem("@Piupiuwer::token");
-    localStorage.removeItem("@Piupiuwer::id");
-    localStorage.removeItem("@Piupiuwer::foto");
-    localStorage.removeItem("@Piupiuwer::sobre");
 
     setData({} as AuthState);
   };
 
   return (
-    <AuthContext.Provider value={{ user: data.user, login, logout }}>
+    <AuthContext.Provider
+      value={{ user: data.user, token: data.token, login, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import like from "../../assets/images/003-favourite 1.svg";
 import deletar from "../../assets/images/delete 2.svg";
 import {
@@ -7,6 +7,8 @@ import {
   DataComponent,
 } from "./styles";
 import api from "../../services/api";
+import { useLoad } from "../../hooks/useLoad";
+import { useAuth } from "../../hooks/useAuth";
 
 export interface PiuItem {
   id: number;
@@ -29,28 +31,41 @@ interface PiuItemProps {
 }
 
 const Piu: React.FC<PiuItemProps> = ({ dados }) => {
-  async function handleDelete(e: React.MouseEvent) {
-    e.preventDefault();
-    const token = localStorage.getItem("@Piupiuwer::token");
-    const piuId = dados.id;
-    const userId = Number(localStorage.getItem("@Piupiuwer::id"));
+  const [change, setChange] = useState(false);
+  const { carregarDados } = useLoad();
+  const { user } = useAuth();
 
-    if (dados.usuario.id === userId) {
-      api.defaults.headers.authorization = `JWT ${token}`;
-      await api.delete(`/pius/${piuId}`);
-    } else {
-      alert("Você não pode excluir pius que não são seus");
-    }
-  }
-  async function handleLike(e: React.MouseEvent) {
-    e.preventDefault();
-    const token = localStorage.getItem("@Piupiuwer::token");
-    const piuId = dados.id;
-    const userId = localStorage.getItem("@Piupiuwer::id");
+  useEffect(() => {
+    carregarDados();
+  }, [change, carregarDados]);
 
-    api.defaults.headers.authorization = `JWT ${token}`;
-    await api.post("/pius/dar-like/", { usuario: userId, piu: piuId });
-  }
+  const handleDelete = useCallback(
+    async (e: React.MouseEvent) => {
+      e.preventDefault();
+      const piuId = dados.id;
+      const userId = user.id;
+
+      if (dados.usuario.id === userId) {
+        await api.delete(`/pius/${piuId}`);
+      } else {
+        alert("Você não pode excluir pius que não são seus");
+      }
+      setChange(!change);
+    },
+    [dados.id, dados.usuario.id, user.id, change]
+  );
+
+  const handleLike = useCallback(
+    async (e: React.MouseEvent) => {
+      e.preventDefault();
+      const piuId = dados.id;
+      const userId = user.id;
+
+      await api.post("/pius/dar-like/", { usuario: userId, piu: piuId });
+      setChange(!change);
+    },
+    [dados.id, user.id, change]
+  );
 
   return (
     <WrapperComponent>

@@ -1,28 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TypePiu from "../TypePiu";
 import Piu, { PiuItem } from "../Piu";
-import { Wrapper } from "./styles";
-import api from "../../services/api";
+import { Wrapper, Pius, Background } from "./styles";
+import { useLoad } from "../../hooks/useLoad";
 
 const Timeline: React.FC = () => {
-  const [dados, setDados] = useState<PiuItem[]>([]);
-
-  async function carregarDados() {
-    const token = localStorage.getItem("@Piupiuwer::token");
-    api.defaults.headers.authorization = `JWT ${token}`;
-    const dados = await api.get("/pius/");
-    setDados(dados.data);
-  }
-  carregarDados();
+  const [dadosTimeline, setDadosTimeline] = useState<PiuItem[]>([]);
+  const { pius } = useLoad();
+  useEffect(() => {
+    setDadosTimeline(pius);
+  }, [pius]);
 
   return (
-    <Wrapper>
-      <TypePiu />
-      {dados &&
-        dados.map((dado: PiuItem) => {
-          return <Piu key={dado.id} dados={dado} />;
-        })}
-    </Wrapper>
+    <>
+      <Wrapper>
+        <TypePiu />
+        <Pius>
+          {dadosTimeline &&
+            dadosTimeline.map((dado: PiuItem) => {
+              return <Piu key={dado.id} dados={dado} />;
+            })}
+        </Pius>
+      </Wrapper>
+      <Background />
+    </>
   );
 };
 

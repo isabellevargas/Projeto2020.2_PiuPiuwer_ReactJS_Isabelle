@@ -3,13 +3,16 @@ import GlobalStyle from "./assets/styles/global";
 import Routes from "./Routes/index";
 import { BrowserRouter } from "react-router-dom";
 import AppProvider from "./hooks/index";
+import { LoadProvider } from "./hooks/useLoad";
 
 const App: React.FC = () => {
   return (
     <BrowserRouter>
       <AppProvider>
-        <Routes />
-        <GlobalStyle />
+        <LoadProvider>
+          <Routes />
+          <GlobalStyle />
+        </LoadProvider>
       </AppProvider>
     </BrowserRouter>
   );

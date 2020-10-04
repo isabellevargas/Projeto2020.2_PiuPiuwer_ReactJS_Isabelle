@@ -2,14 +2,13 @@ import styled from "styled-components";
 
 export const WrapperComponent = styled.li`
   border-bottom: 1px solid rgba(200, 121, 168, 0.73);
-  margin: 2%;
-  padding: 2% 2%;
+  padding: 1rem;
   display: flex;
   justify-content: space-between;
   font-family: "Roboto", sans-serif;
   width: 100%;
 
-  div {
+  > div {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -21,7 +20,7 @@ export const WrapperComponent = styled.li`
 export const InteractionsComponent = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 20px;
+  margin-top: 1rem;
 
   .like {
     display: flex;
@@ -31,13 +30,14 @@ export const InteractionsComponent = styled.div`
   .like p {
     text-decoration: none;
     color: #b164ae;
-    font-size: 12px;
+    font-size: 0.8rem;
+    padding-top: 0.8rem;
   }
 
   a img {
-    width: 15px;
-    height: 15px;
-    margin: 10px 5px 0 10px;
+    width: 1rem;
+    height: 1rem;
+    margin: 1rem 0.5rem 0 1rem;
   }
 
   a:first-child {
@@ -46,35 +46,36 @@ export const InteractionsComponent = styled.div`
 `;
 
 export const DataComponent = styled.div`
+  display: flex;
+
   img {
     object-fit: cover;
-    width: 60px;
-    height: 60px;
+    width: 4rem;
+    height: 4rem;
     border-radius: 50%;
   }
 
   div {
-    margin-left: 10px;
+    margin-left: 0.8rem;
     display: flex;
     flex-direction: column;
   }
 
   div strong {
-    font-size: 14px;
+    font-size: 1rem;
     color: black;
   }
 
   div span {
-    font-size: 13px;
+    font-size: 0.8rem;
     font-weight: normal;
     color: black;
   }
 
   div p {
-    font-size: 14px;
+    font-size: 0.9rem;
     color: black;
-    margin-top: 5px;
-    margin-bottom: 15px;
+    margin-top: 0.3rem;
     display: flex;
     flex-wrap: wrap;
     flex-shrink: 1;

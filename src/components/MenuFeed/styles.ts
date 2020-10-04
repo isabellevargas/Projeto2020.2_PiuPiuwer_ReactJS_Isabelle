@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
 export const Header = styled.header`
-  height: 7%;
+  height: 45px;
   background: white;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
   position: fixed;
   width: 100%;
   top: 0;
-  z-index: 1;
+  z-index: 2;
   font-family: "Roboto", sans-serif;
 
   .content {
@@ -37,9 +37,6 @@ export const Header = styled.header`
   nav ul li img {
     width: 1.3rem;
     height: 1.3rem;
-  }
-
-  nav ul li img {
     margin-right: 0.5rem;
   }
 `;

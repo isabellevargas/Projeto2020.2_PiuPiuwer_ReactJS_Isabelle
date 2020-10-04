@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.aside`
-  margin: 3.5% 5% 0 0;
+  margin: 0 5% 0 0;
   width: 15%;
   display: flex;
   flex-direction: column;
@@ -10,18 +10,19 @@ export const Wrapper = styled.aside`
   font-family: "Roboto", sans-serif;
 
   img {
-    width: 100px;
-    height: 100px;
+    object-fit: cover;
+    width: 8rem;
+    height: 8rem;
     border-radius: 50%;
-    margin: 30px 30px 20px 30px;
+    margin: 2.5rem 2.5rem 1.5rem 2.5rem;
   }
 
   h2 {
-    font-size: 20px;
+    font-size: 1.3rem;
   }
 
   p {
-    font-size: 15px;
+    font-size: 0.9rem;
   }
 
   div {
@@ -30,8 +31,8 @@ export const Wrapper = styled.aside`
   }
 
   span {
-    font-size: 13px;
-    margin-top: 10px;
+    font-size: 0.9rem;
+    margin-top: 0.8rem;
     text-align: center;
   }
 `;
